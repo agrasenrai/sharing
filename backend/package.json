@@ -8,6 +8,7 @@
     "dev": "nodemon --watch src --exec node src/index.js"
   },
   "dependencies": {
+    "archiver": "^8.0.0",
     "axios": "^1.4.0",
     "cloudinary": "^1.32.0",
     "cors": "^2.8.5",

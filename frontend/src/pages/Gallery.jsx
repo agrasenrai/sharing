@@ -59,23 +59,44 @@ export default function Gallery(){
         flexDirection: isMobile ? 'column' : 'row',
         gap: isMobile ? 8 : 0
       }}>
-        <h2 style={{
-          fontSize: isMobile ? 18 : 22,
-          fontWeight: 600,
-          margin: 0,
-          color: '#2D2D2D',
-          letterSpacing: '-0.3px'
-        }}>
-          Your Gallery
-        </h2>
-        {items.length > 0 && (
-          <div style={{
-            fontSize: isMobile ? 12 : 13,
-            color: '#999',
-            fontWeight: 500
+        <div>
+          <h2 style={{
+            fontSize: isMobile ? 18 : 22,
+            fontWeight: 600,
+            margin: 0,
+            color: '#2D2D2D',
+            letterSpacing: '-0.3px'
           }}>
-            {items.length} file{items.length !== 1 ? 's' : ''}
-          </div>
+            Your Gallery
+          </h2>
+          {items.length > 0 && (
+            <div style={{
+              fontSize: isMobile ? 12 : 13,
+              color: '#999',
+              fontWeight: 500,
+              marginTop: 4
+            }}>
+              {items.length} file{items.length !== 1 ? 's' : ''}
+            </div>
+          )}
+        </div>
+        {items.length > 0 && (
+          <a
+            href={`/cloud/download-all?folder=${encodeURIComponent(folder)}`}
+            style={{
+              padding: isMobile ? '8px 12px' : '10px 14px',
+              fontSize: isMobile ? 11 : 12,
+              fontWeight: 600,
+              background: '#D9E8F0',
+              color: '#2D2D2D',
+              borderRadius: 8,
+              textDecoration: 'none',
+              display: 'inline-block',
+              minHeight: isMobile ? 32 : 'auto'
+            }}
+          >
+            Download All
+          </a>
         )}
       </div>
 
@@ -207,7 +228,7 @@ export default function Gallery(){
                   gap: isMobile ? 6 : 8
                 }}>
                   <a 
-                    href={`/cloud/download/${encodeURIComponent(m.public_id)}`}
+                    href={`/cloud/download/${encodeURIComponent(m.public_id)}?resource_type=${encodeURIComponent(m.resource_type || 'image')}&format=${encodeURIComponent(m.format || 'jpg')}&filename=${encodeURIComponent((m.original_filename || m.public_id.split('/').pop() || 'download').replace(/\.[^.]+$/, '') + '.' + (m.format || 'jpg'))}`}
                     style={{
                       flex: 1,
                       padding: isMobile ? '6px 8px' : '8px 12px',
