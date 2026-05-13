@@ -6,7 +6,6 @@ export default function Upload() {
   const [folderName, setFolderName] = useState('my-uploads')
   const [isDragging, setIsDragging] = useState(false)
   const fileInputRef = useRef(null)
-  const folderInputRef = useRef(null)
 
   useEffect(() => {
     const saved = localStorage.getItem('ss-folder')
@@ -107,7 +106,7 @@ export default function Upload() {
   
   return (
     <div style={{padding: isMobile ? '24px 16px' : '45px 40px'}}>
-      <h2 style={{fontSize: isMobile ? 18 : 22, fontWeight: 600, margin: '0 0 24px 0', color: '#2D2D2D'}}>Upload Files</h2>
+      <h2 style={{fontSize: isMobile ? 18 : 22, fontWeight: 600, margin: '0 0 24px 0', color: '#2D2D2D'}}>Upload Media</h2>
 
       <div style={{marginBottom: 24}}>
         <label style={{display: 'block', fontSize: isMobile ? 11 : 12, fontWeight: 600, color: '#777', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5}}>Organization Folder</label>
@@ -116,21 +115,19 @@ export default function Upload() {
 
       <div onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop} style={{border: isDragging ? '2px solid #D9E8F0' : '2px dashed #E8E6E1', borderRadius: 12, padding: isMobile ? 30 : 50, textAlign: 'center', background: isDragging ? '#F0F8FB' : '#FAFAF8', cursor: 'pointer', marginBottom: 20}}>
         <div onClick={() => fileInputRef.current?.click()} style={{fontSize: isMobile ? 36 : 48, marginBottom: 12, cursor: 'pointer', display: 'inline-block'}} onMouseEnter={e => e.target.style.transform = 'scale(1.1)'} onMouseLeave={e => e.target.style.transform = 'scale(1)'}>
-          {file ? '✓' : '📁'}
+          {file ? '✓' : '⬆️'}
         </div>
         <label style={{cursor: 'pointer', display: 'block'}}>
           <input ref={fileInputRef} type="file" onChange={handleChange} style={{display: 'none'}} />
           <div style={{fontSize: isMobile ? 14 : 16, fontWeight: 500, color: '#2D2D2D', marginBottom: 6}}>
-            {Array.isArray(file) ? `${file.length} files selected` : file ? file.name : 'Click icon or drag files'}
+            {Array.isArray(file) ? `${file.length} files selected` : file ? file.name : 'Click icon or drag media'}
           </div>
           <div style={{fontSize: isMobile ? 12 : 13, color: '#999'}}>Single or multiple files</div>
         </label>
-        <button onClick={() => folderInputRef.current?.click()} style={{marginTop: 16, padding: '8px 16px', fontSize: isMobile ? 11 : 12, fontWeight: 500, background: '#F0D9E8', color: '#2D2D2D', border: 'none', borderRadius: 6, cursor: 'pointer'}} onMouseEnter={e => e.target.style.background = '#E8CDE0'} onMouseLeave={e => e.target.style.background = '#F0D9E8'}>📂 Upload Folder</button>
-        <input ref={folderInputRef} type="file" multiple webkitdirectory="true" onChange={handleChange} style={{display: 'none'}} />
       </div>
 
       <div style={{display: 'flex', gap: isMobile ? 12 : 16, alignItems: 'center', flexWrap: 'wrap'}}>
-        <button onClick={upload} disabled={!file} style={{padding: isMobile ? '12px 20px' : '11px 28px', fontSize: isMobile ? 13 : 14, fontWeight: 600, background: file ? '#D9E8F0' : '#E8E6E1', color: file ? '#2D2D2D' : '#999', border: 'none', borderRadius: 8, cursor: file ? 'pointer' : 'not-allowed', minHeight: isMobile ? 44 : 'auto'}} onMouseEnter={e => {if (file) e.target.style.background = '#C9DBEA'}} onMouseLeave={e => {if (file) e.target.style.background = '#D9E8F0'}}>Upload File</button>
+        <button onClick={upload} disabled={!file} style={{padding: isMobile ? '12px 20px' : '11px 28px', fontSize: isMobile ? 13 : 14, fontWeight: 600, background: file ? '#D9E8F0' : '#E8E6E1', color: file ? '#2D2D2D' : '#999', border: 'none', borderRadius: 8, cursor: file ? 'pointer' : 'not-allowed', minHeight: isMobile ? 44 : 'auto'}} onMouseEnter={e => {if (file) e.target.style.background = '#C9DBEA'}} onMouseLeave={e => {if (file) e.target.style.background = '#D9E8F0'}}>Upload Media</button>
         {status && <div style={{fontSize: 13, color: status.includes('error') ? '#DC143C' : '#4CAF50', fontWeight: 500}}>{status}</div>}
       </div>
     </div>
