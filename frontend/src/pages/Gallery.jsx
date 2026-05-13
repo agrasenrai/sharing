@@ -14,7 +14,7 @@ export default function Gallery(){
   useEffect(()=>{
     function load(folder){
       const q = folder ? `?folder=${encodeURIComponent(folder)}` : ''
-      fetch('http://localhost:4000/cloud/list'+q)
+      fetch('/cloud/list'+q)
         .then(r=>r.json())
         .then(data => {
           if (Array.isArray(data)) return setItems(data)
@@ -33,7 +33,7 @@ export default function Gallery(){
     if (!confirm('Delete this file? This action cannot be undone.')) return
     try {
       const q = folder ? `?folder=${encodeURIComponent(folder)}` : ''
-      const res = await fetch('http://localhost:4000/cloud/delete/'+encodeURIComponent(publicId)+q, { method: 'DELETE' })
+      const res = await fetch('/cloud/delete/'+encodeURIComponent(publicId)+q, { method: 'DELETE' })
       const j = await res.json()
       if (j && j.ok) {
         window.dispatchEvent(new Event('ss:refresh-gallery'))
@@ -204,7 +204,7 @@ export default function Gallery(){
                   gap: isMobile ? 6 : 8
                 }}>
                   <a 
-                    href={`http://localhost:4000/cloud/download/${encodeURIComponent(m.public_id)}`}
+                    href={`/cloud/download/${encodeURIComponent(m.public_id)}`}
                     style={{
                       flex: 1,
                       padding: isMobile ? '6px 8px' : '8px 12px',

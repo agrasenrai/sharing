@@ -60,7 +60,7 @@ export default function Upload() {
       
       for (const f of filesToUpload) {
         try {
-          const sigRes = await fetch('http://localhost:4000/cloud/sign', {
+          const sigRes = await fetch('/cloud/sign', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ filename: f.name, folder: folderName })

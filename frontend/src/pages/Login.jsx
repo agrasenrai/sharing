@@ -12,7 +12,7 @@ export default function Login(){
     const url = mode === 'login' ? '/auth/login' : '/auth/signup';
     setStatus('working...')
     try {
-      const res = await fetch('http://localhost:4000' + url, {
+      const res = await fetch(url, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({ email, password, name })
