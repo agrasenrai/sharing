@@ -87,6 +87,7 @@ router.delete('/delete/:publicId', async (req, res) => {
     const { publicId: rawId } = req.params;
     const publicId = normalizePublicId(rawId);
     const folder = req.query.folder;
+    const resourceType = req.query.resource_type || 'image';
     // If folder is specified, verify the public_id starts with that folder
     if (folder) {
       if (!publicId.startsWith(folder + '/')) {
@@ -94,7 +95,7 @@ router.delete('/delete/:publicId', async (req, res) => {
       }
     }
     // Use SDK destroy directly - it handles folder paths in public_id correctly
-    const result = await cloudinary.uploader.destroy(publicId);
+    const result = await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
     res.json({ ok: true, result });
   } catch (e) {
     console.error(e);

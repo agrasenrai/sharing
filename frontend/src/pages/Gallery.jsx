@@ -33,7 +33,9 @@ export default function Gallery(){
     if (!confirm('Delete this file? This action cannot be undone.')) return
     try {
       const q = folder ? `?folder=${encodeURIComponent(folder)}` : ''
-      const res = await fetch('/cloud/delete/'+encodeURIComponent(publicId)+q, { method: 'DELETE' })
+      const resourceType = items.find(item => item.public_id === publicId)?.resource_type || 'image'
+      const resourceQuery = `${q}${q ? '&' : '?'}resource_type=${encodeURIComponent(resourceType)}`
+      const res = await fetch('/cloud/delete/'+encodeURIComponent(publicId)+resourceQuery, { method: 'DELETE' })
       const j = await res.json()
       if (j && j.ok) {
         window.dispatchEvent(new Event('ss:refresh-gallery'))
@@ -147,6 +149,7 @@ export default function Gallery(){
               key={m.public_id || idx}
               onMouseEnter={() => setHoveredId(m.public_id || idx)}
               onMouseLeave={() => setHoveredId(null)}
+              data-resource-type={m.resource_type || 'image'}
               style={{
                 background: 'white',
                 borderRadius: 12,
