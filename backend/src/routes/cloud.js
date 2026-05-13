@@ -49,11 +49,10 @@ router.get('/list', async (req, res) => {
     const q = cloudinary.search.expression(expression || undefined).sort_by('uploaded_at', 'desc').max_results(200);
     const result = await q.execute();
     res.json(result.resources || []);
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: err.message })
   }
-  res.json(result.resources || [])
-} catch (err) {
-  console.error(err)
-  res.status(500).json({ error: err.message })
 }
 })
 
