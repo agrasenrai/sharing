@@ -136,14 +136,3 @@ export default function Upload() {
     </div>
   )
 }
-            fontSize: 13,
-            color: status.includes('error') ? '#DC143C' : '#4CAF50',
-            fontWeight: 500
-          }}>
-            {status}
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
